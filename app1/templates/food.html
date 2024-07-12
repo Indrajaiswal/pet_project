@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+{% extends 'Home.html' %}
+{% block title %}
+Pet Care
+{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="../static/css/food.css">
+<style>
+    .result-set {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .result-set strong {
+        color: #333;
+    }
+
+    /* Style for the food suggestion */
+    .food-suggestion {
+        font-weight: bold;
+        margin-top: 10px;
+        color: #008000; /* Green color for food suggestion */
+    }
+
+    /* Style for the food list */
+    .food-list {
+        margin-top: 10px;
+    }
+
+    .food-list-item {
+        list-style: decimal inside;
+        margin: 5px 0;
+        color: #333;
+    }
+</style>
+{% endblock style %}
+         
+</head>
+{% block body %}
+<div class="main">
+    <div class="register">
+        <h2>Food Menu</h2>
+        <label>Pet Name :</label>
+        <br>
+        <input type="text" name="name" id="name" placeholder="enter the breed of your dog">
+        <br><br>
+        <label>Age :</label>
+        <br>
+        <input type="number" name="age" min="0" max="20" oninput="validity.valid||(value='')" ; id="number" placeholder="enter the age">
+        <br><br>
+        <label>Weight :</label>
+        <br>
+        &nbsp;&nbsp;&nbsp;
+        <input type="number" name="weight" min="0" max="40" oninput="validity.valid||(value='')" ; id="weight" placeholder="enter the weight">
+        &nbsp;
+        <br><br>
+        <label>Breed:</label>
+        <br>
+        <input type="text" name="breed" id="breed" placeholder="enter the breed">
+        <br><br>
+        <button onclick="displayInputValuesAndSuggestion()">Submit</button>
+    </div>
+    <div class="result-set"></div>
+</div>
+{% block script %}
+<script type="text/javascript">
+function displayInputValuesAndSuggestion() {
+    var name = document.getElementById('name').value;
+    var age = parseInt(document.getElementById('number').value);
+    var weight = parseInt(document.getElementById('weight').value);
+    var breed = document.getElementById('breed').value;
+    var resultDiv = document.querySelector('.result-set');
+    
+    
+    var outputDiv = document.createElement('div');
+    outputDiv.className = 'result-set'; // Add CSS class
+    outputDiv.innerHTML = '<strong>Pet Name:</strong> ' + name + '<br>' +
+                          '<strong>Age:</strong> ' + age + '<br>' +
+                          '<strong>Weight:</strong> ' + weight + '<br>' +
+                          '<strong>Breed:</strong> ' + breed + '<br>';
+    
+   
+    var foodLists = {
+        'Golden Retriever': {
+            'puppy': ['Chicken Breast Boiled:50gm/twice a day', 'Cerelac every 4 hours','Plain Rice with Curd once a day'],
+            'adult': ['Chicken Breast Boiled:100gm with plain rice :75gm/twice a day', 'Adult Dog Food:100gm/twice a day','Boiled Vegetables:250gm/thrice a day'],
+            'old dogs': ['Chicken broth: 1 bowl/3 times a day', 'Plain rice(50gm) with boiled vegetable(any portion)/twice a day']
+        },
+        'Japanese Spitz': {
+            'puppy': ['Plain rice(25gm)with curd once a day', 'Cerelac every 5 hours'],
+            'adult': ['Boiled Chicken :45gm with palin rice:50gm', 'Adult dog food:50gm/twice a day','Boiled Vegetables:150gm/twice a day'],
+            'old dogs': ['Chicken broth: 1 bowl/2 times a day', 'Plain rice(25gm) with boiled vegetable(any portion)/twice a day']
+        },
+        'German Shepherd': {
+            'puppy': ['Chicken Breast Boiled:50gm/twice a day', 'Cerelac every 4hours','Plain Rice with Curd once a day'],
+            'adult': ['Chicken Breast Boiled:400gm with plain rice :150gm/twice a day', 'Adult Dog Food:100gm/twice a day','Boiled Vegetables:500gm/thrice a day'],
+            'old dogs': ['Chicken Breast Boiled:300gm with plain rice :150gm/twice a day', 'Plain rice(25gm) with boiled vegetable(any portion)/twice a day']
+        },
+        
+    };
+    
+    
+    var lifeStage = '';
+    if (age < 5) {
+        lifeStage = 'puppy';
+    } else if (age >= 5 && age <= 15) {
+        lifeStage = 'adult';
+    } else {
+        lifeStage = 'old';
+    }
+    
+    var foodList = foodLists[breed] && foodLists[breed][lifeStage] ? foodLists[breed][lifeStage] : ['Chicken Breast Boiled:400gm with plain rice :150gm/twice a day', 'Adult Dog Food:100gm/twice a day','Boiled Vegetables:500gm/thrice a day'] ;
+    
+    var foodSuggestion = 'Suggested food for ' + breed + ' ' + lifeStage + ' dogs:<ul class="food-list">';
+    foodList.forEach(function(item) {
+        foodSuggestion += '<li class="food-list-item">' + item + '</li>';
+    });
+    foodSuggestion += '</ul>';
+    
+    outputDiv.innerHTML += '<strong>Food Suggestion:</strong> ' + foodSuggestion;
+    
+    resultDiv.appendChild(outputDiv);
+}
+</script>
+{% endblock script %}
+{% endblock body %}
+</html>

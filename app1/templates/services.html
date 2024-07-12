@@ -1,0 +1,107 @@
+{% extends 'Home.html' %}
+{% block title %}
+Pet Care
+{% endblock title %}
+
+{% block style %}
+
+
+{% comment %} <link rel="stylesheet" href="../static/css/landing.css"> {% endcomment %}
+<link rel="stylesheet" href="../static/css/services.css">
+
+
+{% endblock style %}
+
+
+{% block body %}
+        <section class="services" id="services">
+
+            <h1 class="heading">Our <span>Services</span>
+            </h1>
+           <div class="box-container">
+    <div class="box">
+        <i class="fas fa-hotel"></i>
+        <h3>Hostel Facilities</h3>
+        {% if user.is_authenticated %}
+        <a href="{% url 'hostelfacilities' %}" class="btn">View Now</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn">View Now</a>
+        {% endif %}  
+       
+    </div>
+
+    <div class="box">
+        <i class="fas fa-heart"></i>
+        <h3>Insurance Plans</h3>
+        {% if user.is_authenticated %}
+        <a href="{% url 'insurance' %}" class="btn">Buy a Plan</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn">Buy a Plan</a>
+        {% endif %} 
+
+    </div>
+
+    <div class="box">
+        <i class="fas fa-calendar-alt"></i>
+        <h3>Appointment</h3>
+        {% if user.is_authenticated %}
+        <a href="{% url 'doctor' %}" class="btn">Read More</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn">Read More</a>
+    {% endif %}    </div>
+
+    <div class="box">
+        <i class="fas fa-drumstick-bite"></i>
+        <h3>Food Menu</h3>
+        {% if user.is_authenticated %}
+        <a href="{% url 'food' %}" class="btn">Menu</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn">Menu</a>
+        {% endif %} 
+    </div>
+</div>
+
+                {% comment %} <div class="box">
+                    <i class="fas fa-dog"></i>
+                    <h3>Monthly Budget</h3>
+                    <a href="#" class="btn">read more</a>
+                </div>
+                <div class="box">
+                    <i class="fa-solid fa-calculator"></i>
+                    <h3> Budget Calculator</h3>
+                    <a href="calculator.html" class="btn">Calculate </a>
+                </div> {% endcomment %}
+    
+            </div>
+           </section>
+    
+           
+    
+
+              {% block script %}
+    
+              {% comment %} <script src="../static/js/script.js"></script>
+              <script>
+                const appointmentLink = document.querySelector('.box a[href*="booking"]');
+                const insuranceLink = document.querySelector('.box a[href*="insurance"]');
+                const hostelLink = document.querySelector('.box a[href*="hostelfacilities"]');
+                const foodLink = document.querySelector('.box a[href*="foodmenu"]');
+            
+                // Check if the user is authenticated
+                // const userAuthenticated = {% if user.is_authenticated %}true{% else %}false{% endif %};
+            
+                if (!userAuthenticated) {
+                    // Disable the links if the user is not authenticated
+                    bookingLink.style.pointerEvents = 'none';
+                    bookingLink.style.opacity = '0.5';
+                    insuranceLink.style.pointerEvents = 'none';
+                    insuranceLink.style.opacity = '0.5';
+                    hostelLink.style.pointerEvents = 'none';
+                    hostelLink.style.opacity = '0.5';
+                    foodLink.style.pointerEvents = 'none';
+                    foodLink.style.opacity = '0.5';
+                }
+            </script> {% endcomment %}
+            
+              {% endblock script %}
+    {% endblock body %}

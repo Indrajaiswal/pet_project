@@ -1,0 +1,79 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"/>
+    <title>Register</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="box form-box">
+            <h1>Register</h1>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="field input">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username">
+                </div>
+
+                <div class="field input">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email">
+                </div>
+
+                <div class="field input">
+                    <label for="password1">Password</label>
+                    <input type="password" name="password1" id="password1">
+                </div>
+
+                <div class="field input">
+                    <label for="password2"> Confirm Password</label>
+                    <input type="password" name="password2" id="password2">
+                </div>
+                
+                <div class="field">
+                    <input type="submit" class="btn" name="submit" value="Register" required autocomplete="off">
+                </div>
+
+                <div class="link">
+                    Already have an account? <a href="{% url 'login' %}">LogIn</a>
+                </div>
+
+                <div class="social-login">
+                    <a href="{% provider_login_url 'google' %}" class="btn">Login with Google</a>
+                </div>
+
+                <!-- Error message div for strong password -->
+                <div id="password-error" class="error-message" style="color: red; display: none;">
+                    Your password does not meet the strength criteria. It should include a combination of uppercase letters, lowercase letters, numbers, and symbols.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to display the password error message
+        const password1 = document.getElementById("password1");
+        const passwordError = document.getElementById("password-error");
+
+        password1.addEventListener("input", () => {
+            if (password1.value && !isStrongPassword(password1.value)) {
+                passwordError.style.display = "block";
+            } else {
+                passwordError.style.display = "none";
+            }
+        });
+
+        function isStrongPassword(password) {
+            // Check for at least 8 characters, one uppercase, one lowercase, one digit, and one special character
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            return regex.test(password);
+        }
+    </script>
+</body>
+</html>

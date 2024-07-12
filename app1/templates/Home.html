@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <link rel="stylesheet" href="{% static '/css/home.css' %}"/>
+        {% block style %}
+  
+        {% endblock style %}
+    
+   
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo"><a href='#'><i class="fa-solid fa-paw"></i> PET CARE</a></div>
+            <ul class="links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'help' %}">Help</a></li>
+
+                {% comment %} <li><a href="{% url 'booked' %}">Dashboard</a></li> {% endcomment %}
+
+            </ul>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}" class="action_btn">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}" class="action_btn">Get Start</a></li>
+            {% endif %}
+            <div class="toggle_btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+
+        <div class="dropdown_menu">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'services' %}">Services</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="{% url 'help' %}">Help</a></li>
+
+            {% comment %} <li><a href="{% url 'booked' %}">Dashboard</a></li> {% endcomment %}
+
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}" class="action_btn">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}" class="action_btn">Get Start</a></li>
+            {% endif %}
+        </div>
+    </header>
+
+
+    {% block body %}
+    
+  
+  {% endblock body %}
+
+    
+    
+    <script>
+        const toggleBtn = document.querySelector('.toggle_btn')
+        const toggleBtnIcon = document.querySelector('.toggle_btn i')
+        const dropDownMenu = document.querySelector('.dropdown_menu')
+
+        toggleBtn.onclick = function () {
+            dropDownMenu.classList.toggle('open')
+            const isOpen = dropDownMenu.classList.contains('open')
+
+            toggleBtnIcon.classList = isOpen
+                ? 'fa-solid fa-xmark'
+                : 'fa-solid fa-bars'
+        }
+    </script>
+     {% block script %}
+    
+  
+    {% endblock script %}
+</body>
+
+</html>

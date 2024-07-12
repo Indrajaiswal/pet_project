@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+    <link rel="stylesheet" href="../static/css/payment.css" />
+</head>
+
+<body>
+    <form method="post" id="insuranceForm">
+        {% csrf_token %}
+        <h1>Pet Insurance Form</h1>
+        <label for="petName">Pet Name:</label>
+        <input type="text" id="petName" name="petName" required />
+        <br /><br />
+
+        <label for="ownerName">Owner Name:</label>
+        <input type="text" id="ownerName" name="ownerName" required />
+        <br /><br />
+
+        <label for="ownerName">Insurance Name:</Namelabel><br> 
+        <input type="radio" id="lifeTime" name="insurance" value="LifeTime">
+        <label for="lifetime">Life Time</label><br>
+
+        <input type="radio" id="annual" name="insurance" value="Annual">
+        <label for="annual">Annual</label><br>
+
+        <input type="radio" id="accident" name="insurance" value="Accident ">
+        <label for="accident">Accident Only</label><br /><br />
+
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required min="{{ today }}" />
+        <br /><br />
+
+        <button type="button" id="payment-button">Submit and Pay with Khalti</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById('startDate').value = today;
+            document.getElementById('startDate').min = today; // Set the min attribute for the date input
+        });
+
+        var btn = document.getElementById("payment-button");
+        btn.onclick = function () {
+            var petName = document.getElementById("petName").value;
+            var ownerName = document.getElementById("ownerName").value;
+            var insuranceName = document.getElementById("insuranceName").value;
+            var startDate = document.getElementById("startDate").value;
+
+            console.log(petName, ownerName, insuranceName, startDate);
+
+            var config = {
+                publicKey: "test_public_key_253a422f8eec4e3ead50b74161b945da",
+                productIdentity: insuranceName,
+                productName: insuranceName,
+                productUrl: "http://gameofthrones.wikia.com/wiki/Dragons",
+                paymentPreference: ["KHALTI"],
+                eventHandler: {
+                    onSuccess(payload) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "{% url 'process_payment' %}", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");  // Make sure this header is set for AJAX
+                        xhr.onload = function () {
+                            if (xhr.status == 200) {
+                                console.log(xhr.responseText);
+                            }
+                        };
+
+                        var formData = new FormData();
+                        formData.append('pet_name', petName);
+                        formData.append('owner_name', ownerName);
+                        formData.append('insurance_name', insuranceName);
+                        formData.append('start_date', startDate);
+                        
+                        var csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+                        xhr.setRequestHeader("X-CSRFToken", csrfToken);
+                        console.log(petName, ownerName, insuranceName, startDate);
+                        console.log('Submitting form data...');
+                        xhr.send(formData);
+                    },
+                    onError(error) {
+                        console.log(error);
+                    },
+                    onClose() {
+                        console.log("widget is closing");
+                    },
+                },
+            };
+
+            var checkout = new KhaltiCheckout(config);
+            checkout.show({ amount: 2000 }); // 2000 paisa = NPR 20
+        };
+    </script>
+</body>
+</html>

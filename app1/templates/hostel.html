@@ -1,0 +1,120 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --transition: all 0.7s;
+            --yellow: #f9d342;
+            --dark: #292826;
+        }
+
+        * {
+            box-sizing: border-box;
+            padding: 0%;
+            margin: 0%;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .flex {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            padding: 8px 0;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                font-size: 14px;
+            }
+        }
+
+        .header {
+            background-image: url('{% static "image/host.png" %}');
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-content: stretch;
+            background-size: cover; /* Set the background size to cover the entire element */
+            background-repeat: no-repeat; /* Prevent the background from repeating */
+            background-position: center; /* Center the background image */
+        }
+        
+
+        .head-top {
+            display: flex;
+            justify-content: space between;
+            align-items: center;
+        }
+
+        .head-top span {
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .head-top span:hover {
+            color: var(--yellow);
+        }
+
+        .btn-book {
+            background-color: #e67e22;
+            color: white;
+            margin: 7px;
+            padding: 5px;
+            text-decoration: none;
+            font-size: 45px;
+            border: 4px solid white;
+            border-radius: 7px;
+        }
+
+        .head-bottom h2 {
+            font-weight: bold;
+            color: #000; /* Black color */
+            font-size: 50px; /* Increase font size to 28px */
+        }
+        .head-bottom p {
+            font-weight: bold;
+            color: #000; /* Black color */
+            font-size: 20px; /* Increase font size to 28px */
+        } 
+    </style>
+    <script src="https://www.canva.com/" crossorigin="anonymous"></script>
+    <title>Kennel</title>
+</head>
+<body>
+    <header class="header" id="header">
+        {% comment %} <div class="heaad-top">
+            <div class="site-name">
+                <img src="{% static "image/banner-img.jpg" %}" style="width: 50px; height: 50px;">
+            </div>
+            <div class="site-nav">
+                <span id="nav-btn"></span>
+            </div>
+        </div> {% endcomment %}
+
+        <div class="head-bottom flex">
+            <h2>Comfortable place for your lovely pets</h2>
+             {% comment %} <p>Welcome to our Dog Hostel, the ultimate retreat for your canine companions.
+                We offer a cozy and nurturing environment where dogs can relax and have a tail-wagging good time.
+                Our dedicated team provides personalized care, engaging activities, and all the comforts of home. 
+                Trust us to make your dog's stay memorable and enjoyable. 
+                Book their stay now and let them experience the love and pampering they deserve!
+            </p>  {% endcomment %}
+
+            <a href="{% url 'book' %}" class="btn-book">Start Booking</a>
+        </div>
+    </header>
+</body>
+</html>

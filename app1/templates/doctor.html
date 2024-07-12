@@ -1,0 +1,90 @@
+{% extends 'Home.html' %}
+{% block title %}
+Pet Care
+{% endblock title %}
+
+{% block style %}
+<title>Appointement</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<title>Doctor Profiles</title>
+    <style>
+        .doctor-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .doctor-profile {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 16px;
+            border-radius: 8px;
+            text-align: center;
+            width: 200px;
+        }
+        .doctor-image {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+        .doctor-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+        .appointment-link {
+            margin-top: 12px;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .appointment-link:hover {
+            background-color: #0056b3;
+        }
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+{% endblock style %}
+
+{% block body %}
+<body>
+    <h1>Doctors</h1>
+    <div class="doctor-container">
+        <div class="doctor-profile">
+            <img src="../static/image/Doctor.jpg" alt="Dr. John Doe" class="doctor-image">
+            <div class="doctor-name">Dr. John Doe</div>
+            <div>Veterinary specialists</div>
+            <a href="{% url 'doctorappointment' %}?doctor=1" class="appointment-link">Book an Appointment</a>
+        </div>
+        
+        <div class="doctor-profile">
+            <img src="../static/image/Doctor.jpg" alt="Dr. Jane Smith" class="doctor-image">
+            <div class="doctor-name">Dr. Jane Smith</div>
+            <div>Veterinary specialists</div>
+            <a href="{% url 'doctorappointment' %}?doctor=2" class="appointment-link">Book an Appointment</a>
+        </div>
+        
+        <div class="doctor-profile">
+            <img src="../static/image/Doctor.jpg" alt="Dr. Emily Brown" class="doctor-image">
+            <div class="doctor-name">Dr. Emily Brown</div>
+            <div>Veterinary specialists</div>
+            <a href="{% url 'doctorappointment' %}?doctor=3" class="appointment-link">Book an Appointment</a>
+        </div>
+        
+        <div class="doctor-profile">
+            <img src="../static/image/Doctor.jpg" alt="Dr. Michael Green" class="doctor-image">
+            <div class="doctor-name">Dr. Michael Green</div>
+            <div>Veterinary specialists</div>
+            <a href="{% url 'doctorappointment' %}?doctor=4" class="appointment-link">Book an Appointment</a>
+        </div>
+    </div>
+</body>
+{% endblock body %}

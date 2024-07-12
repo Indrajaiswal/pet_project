@@ -1,0 +1,225 @@
+{% extends 'Home.html' %}
+{% block title %}
+Landing
+{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="../static/css/home.css">
+<style>
+    .chatbot-widget body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .chatbot-widget .chat-container {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        max-width: 90%;
+        padding: 20px;
+        z-index: 1000;
+        transition: transform 0.3s ease-in-out;
+    }
+    .chatbot-widget .chat-header {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    .chatbot-widget .chat-box {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        height: 300px;
+        overflow-y: auto;
+        background-color: #f9f9f9;
+    }
+    .chatbot-widget .chat-box p {
+        margin: 5px 0;
+    }
+    .chatbot-widget .user-message {
+        text-align: right;
+        color: #555;
+    }
+    .chatbot-widget .bot-message {
+        text-align: left;
+        color: #007bff;
+    }
+    .chatbot-widget .chat-input-container {
+        display: flex;
+        margin-top: 10px;
+    }
+    .chatbot-widget .chat-input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px 0 0 8px;
+        outline: none;
+    }
+    .chatbot-widget .chat-button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .chatbot-widget .chat-button:hover {
+        background-color: #0056b3;
+    }
+    .chatbot-widget .chat-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    .chatbot-widget .chat-icon:hover {
+        background-color: #0056b3;
+        transform: scale(1.1);
+    }
+    .chatbot-widget .predefined-questions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .chatbot-widget .predefined-question-button {
+        flex: 1 1 calc(50% - 10px);
+        padding: 10px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+    .chatbot-widget .predefined-question-button:hover {
+        background-color: #0056b3;
+    }
+    @media (max-width: 500px) {
+        .chatbot-widget .chat-container {
+            width: 90%;
+            bottom: 10px;
+            right: 10px;
+        }
+        .chatbot-widget .chat-icon {
+            width: 50px;
+            height: 50px;
+        }
+    }
+</style>
+{% endblock style %}
+
+{% block body %}
+<main>
+    <section id="Hero">
+      <h1>Welcome!<br /><span>To our New Website.</span></h1>
+      <p>The best place for Caring Your Loving PETS</p>
+  
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Chatbot HTML -->
+  <div class="chatbot-widget">
+      <div class="chat-icon" onclick="toggleChat()">💬</div>
+      <div class="chat-container" id="chat-container">
+          <div class="chat-header">Chatbot</div>
+          <div class="chat-box" id="chat-box"></div>
+          <div class="chat-input-container">
+              <input type="text" id="question" class="chat-input" placeholder="Type your question here...">
+              <button class="chat-button" onclick="sendMessage()">Send</button>
+          </div>
+          <div class="predefined-questions">
+              <button class="predefined-question-button" onclick="askPredefinedQuestion('When are doctors available?')">When are doctors available?</button>
+              <button class="predefined-question-button" onclick="askPredefinedQuestion('How many doctors are available each day?')">How many doctors are available each day?</button>
+              <button class="predefined-question-button" onclick="askPredefinedQuestion('How many tickets do doctors have each day?')">How many tickets do doctors have each day?</button>
+              <button class="predefined-question-button" onclick="askPredefinedQuestion('What services do you offer?')">What services do you offer?</button>
+              <button class="predefined-question-button" onclick="askPredefinedQuestion('Can I book an appointment?')">Can I book an appointment?</button>
+              <button class="predefined-question-button" onclick="askPredefinedQuestion('What is your location?')">What is your location?</button>
+              <button class="predefined-question-button" onclick="askPredefinedQuestion('How can I contact support?')">How can I contact support?</button>
+          </div>
+      </div>
+  </div>
+  
+  {% endblock body %}
+  
+
+{% block script %}
+<script src="../static/js/script.js"></script>
+<script>
+    function toggleChat() {
+        var chatContainer = document.getElementById("chat-container");
+        chatContainer.style.display = chatContainer.style.display === "none" || chatContainer.style.display === "" ? "block" : "none";
+    }
+
+    function sendMessage() {
+        var question = document.getElementById("question").value;
+        var chatBox = document.getElementById("chat-box");
+        if (question.trim() === "") return;  // Avoid sending empty messages
+
+        console.log("Sending message:", question);
+
+        // Add user message
+        var userMessage = document.createElement("p");
+        userMessage.className = "user-message";
+        userMessage.innerText = question;
+        chatBox.appendChild(userMessage);
+
+        // Fetch response from the server
+        fetch(`/get_response/?question=${encodeURIComponent(question)}`)
+            .then(response => {
+                console.log("Response received:", response);
+                return response.json();
+            })
+            .then(data => {
+                console.log("Data received:", data);
+                var botMessage = document.createElement("p");
+                botMessage.className = "bot-message";
+                botMessage.innerText = data.answer;
+                chatBox.appendChild(botMessage);
+                chatBox.scrollTop = chatBox.scrollHeight;  // Scroll to the bottom
+            })
+            .catch(error => {
+                console.error('Error fetching response:', error);
+            });
+
+        document.getElementById("question").value = "";  // Clear input field
+    }
+
+
+
+    function askPredefinedQuestion(question) {
+        document.getElementById("question").value = question;
+        sendMessage();
+    }
+</script>
+{% endblock script %}

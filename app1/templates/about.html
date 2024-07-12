@@ -1,0 +1,141 @@
+{% extends 'Home.html' %}
+{% block title %}
+Pet Care
+{% endblock title %}
+
+{% block style %}
+{% comment %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> {% endcomment
+%}
+{% comment %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css"> {% endcomment %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="../static/css/about.css">
+
+{% endblock style %}
+
+{% block body %}
+
+<body>
+    <section class="contact" id="contact">
+        <div class="heading1">
+            <h1>About US</h1>
+        </div>
+        
+        <div class="container">
+            <div class="box">
+                <img src="../static/image/hostel.png" alt="">
+                <h3>Hostel</h3>
+                <div class="visible-content">
+                    <p>
+                        Welcome to the Hostel Facilities at "PET CARE"! Our dedicated pet hostel provides a safe haven
+                        for your furry friends when you need a reliable solution for their care. Whether you're traveling,
+                        facing an emergency, or simply need some time to attend to other responsibilities, our hostel
+                        offers a comfortable environment where pets can thrive.....
+                    </p>
+                </div>
+                <div class="invisible-content">
+                    <p>
+                        At "PET CARE," we understand that pets are cherished members of the family. Our hostel is designed
+                        with their well-being in mind, ensuring they receive the utmost care and attention. Our trained
+                        staff members are passionate about animals and are committed to creating a secure and nurturing
+                        atmosphere. Each pet is provided with a clean, cozy space, regular exercise, and socialization
+                        opportunities with other pets. Additionally, we offer personalized feeding schedules based on
+                        individual dietary needs and a comfortable resting area for a peaceful night's sleep. Rest assured,
+                        your beloved pet will be in capable hands, allowing you to attend to your commitments with peace of
+                        mind. Trust "PET CARE" to be your pet's home away from home.
+                    </p>
+                </div>
+                <button class="btn">Read More</button>
+            </div>
+
+            <div class="box">
+                <img src="../static/image/app.jpg" alt="">
+                <h3>Appointment</h3>
+                <div class="visible-content">
+                    <p>
+                        Welcome to the Appointment Booking service at "PET CARE"! We understand the importance of timely
+                        and quality healthcare for your beloved pets. Our user-friendly platform allows you to conveniently
+                        schedule appointments with experienced veterinary professionals, ensuring your furry companions receive
+                        the best care possible....
+                    </p>
+                </div>
+                <div class="invisible-content">
+                    <p>
+                        At "PET CARE," we prioritize the well-being of your pets above all else. Our appointment booking
+                        system is designed to make the process seamless and hassle-free. With just a few clicks, you can
+                        select your preferred date and time slot, choosing from a roster of experienced vet doctors. This
+                        ensures that you have access to the expertise your pet deserves, at a time that suits your schedule.
+                        Additionally, our platform keeps track of your appointments, sending you timely reminders so you never
+                        miss an important check-up or vaccination. Rest assured, with "PET CARE," you're taking a proactive
+                        step in maintaining the health and happiness of your cherished pets.
+                    </p>
+                </div>
+                <button class="btn">Read More</button>
+            </div>
+
+            <div class="box">
+                <img src="../static/image/food.jpg" alt="">
+                <h3>Food Menu</h3>
+                <div class="visible-content">
+                    <p>
+                        Discover the Tailored Food Menu at "PET CARE"! We recognize that every dog is unique, with distinct dietary needs based on their breed type. 
+                        Our specially curated menu ensures that your furry companion receives the nutrition they require to thrive and lead a healthy, active life.....
+                    </p>
+                 </div>
+                 <div class="invisible-content">
+                     <p>
+                          At "PET CARE," we believe that a well-balanced diet is essential for a pet's overall well-being.
+                          Our food menu is carefully crafted to cater to the specific needs of different breeds. Each menu item is selected with consideration for the nutritional requirements of various dog breeds, ensuring a balanced and wholesome diet. 
+                          Whether your pet prefers dry kibble, wet food, or special dietary options, we offer a variety of choices to accommodate their taste and preferences. With "PET CARE," you can take confidence in knowing that your pet is receiving top-quality nutrition, tailored to their individual needs, contributing to their vitality and longevity. 
+                          Trust us to provide the nourishment your furry friend deserves.
+                     </p>
+ 
+                 </div>
+                <button class="btn">Read More</button>
+            </div>
+
+            <div class="box">
+                <img src="../static/image/ins.jpg" alt="">
+                <h3>Insurance</h3>
+                <div class="visible-content">
+                    <p>
+                        Welcome to the Insurance Plans at "PET CARE"! We understand that your pet's health and well-being are
+                        of paramount importance. Our comprehensive range of insurance options is designed to provide you with
+                        peace of mind, knowing that you have financial security in case of unexpected medical expenses for your
+                        furry companion.....
+                    </p>
+                </div>
+                <div class="invisible-content">
+                    <p>
+                        At "PET CARE," we believe that every pet deserves access to quality healthcare without the burden of
+                        exorbitant costs. Our insurance plans offer a variety of coverage options, allowing you to choose a
+                        plan that aligns with your pet's specific needs and your budget. Whether it's routine check-ups,
+                        vaccinations, or unexpected emergencies, our plans provide financial support, so you can focus on what
+                        matters most - your pet's health and happiness. With "PET CARE" insurance, you can rest assured that
+                        you're making a wise investment in your pet's well-being, ensuring they receive the best care possible,
+                        no matter the circumstance. Join us in prioritizing your pet's health with our reliable and affordable
+                        insurance options.
+                    </p>
+                </div>
+                <button class="btn">Read More</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+            $(".invisible-content").hide();
+            $(document).on('click', ".btn", function () {
+                var MoreLessButton = $(this).parent(".box").find(".invisible-content").is(":visible") ? 'Read More' : 'Read Less';
+                $(this).text(MoreLessButton);
+                $(this).parent(".box").find(".invisible-content").toggle();
+                $(this).parent(".box").find(".visible-content").toggle();
+            });
+        });
+    </script>
+</body>
+
+{% endblock body %}
+

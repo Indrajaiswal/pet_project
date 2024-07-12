@@ -1,0 +1,91 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.box {
+    flex: 1;
+    margin: 1rem;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 7px 7px rgb(244, 143, 20);
+    overflow: hidden;
+    width: calc(50% - 2rem); /* Two boxes per row with margin in between */
+    max-width: 300px; /* Maximum width for each box */
+    text-align: center;
+}
+
+.box img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px 5px 0 0;
+}
+
+.box h3 {
+    font-size: 16px; /* Smaller font size for headings */
+    margin: 10px 0;
+}
+.heading1 h1 {
+    font-size: 50px; /* Smaller font size for headings */
+    margin: 10px 0;
+    text-align: center;
+}
+
+
+.box p {
+    font-size: 14px; /* Smaller font size for text */
+    line-height: 1.4;
+    padding: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    margin: 1rem;
+    padding: 10px 15px;
+    border-radius: 5rem;
+    border: 0.2rem solid orange;
+    cursor: pointer;
+    background: none;
+    color: orange;
+    overflow: hidden;
+    z-index: 0;
+    position: relative;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: orange;
+    z-index: -1;
+    transition: 0.5s linear;
+    clip-path: circle(0% at 0% 5%);
+}
+
+.btn:hover::before {
+    clip-path: circle(100%);
+}
+
+.btn:hover {
+    color: white;
+}
+
+/* Add media queries for responsiveness */
+@media screen and (max-width: 768px) {
+    .box {
+        width: 100%; /* One box per row on smaller screens */
+        max-width: 100%; /* Full width on smaller screens */
+    }
+}
